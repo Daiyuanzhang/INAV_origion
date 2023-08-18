@@ -317,17 +317,17 @@ void taskUpdateAux(timeUs_t currentTimeUs)
 #endif
 }
 
-void fcTasksInit(void)
+void fcTasksInit(void) //将有效的任务添加到队列中，如果没有空速计，则任务不会被添加到任务中。
 {
     schedulerInit();
 
-    rescheduleTask(TASK_PID, getLooptime());
-    setTaskEnabled(TASK_PID, true);
+    rescheduleTask(TASK_PID, getLooptime());//为任务设置任务执行时间
+    setTaskEnabled(TASK_PID, true); //将任务添加到任务队列中，优先级到的任务在头部，低的在NULL数组内存中增加。
 
-    rescheduleTask(TASK_GYRO, getGyroLooptime());
+    rescheduleTask(TASK_GYRO, getGyroLooptime()); //TASK_GYRO在TASK_PID后面
     setTaskEnabled(TASK_GYRO, true);
 
-    setTaskEnabled(TASK_AUX, true);
+    setTaskEnabled(TASK_AUX, true);  //该任务在TASK_GYRO的后面
 
     setTaskEnabled(TASK_SERIAL, true);
 #if defined(BEEPER) || defined(USE_DSHOT)
