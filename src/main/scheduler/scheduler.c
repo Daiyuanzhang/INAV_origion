@@ -41,7 +41,7 @@ FASTRAM uint16_t averageSystemLoadPercent = 0;
 
 
 STATIC_FASTRAM int taskQueuePos = 0;
-STATIC_FASTRAM int taskQueueSize = 0;
+STATIC_FASTRAM int taskQueueSize = 0;// 任务被添加到队列的数量
 // No need for a linked list for the queue, since items are only inserted at startup
 #ifdef UNIT_TEST
 STATIC_FASTRAM_UNIT_TESTED cfTask_t* taskQueueArray[TASK_COUNT + 2]; // 1 extra space so test code can check for buffer overruns
@@ -50,7 +50,7 @@ STATIC_FASTRAM cfTask_t* taskQueueArray[TASK_COUNT + 1]; // extra item for NULL 
 #endif
 STATIC_UNIT_TESTED void queueClear(void)
 {
-    memset(taskQueueArray, 0, sizeof(taskQueueArray));
+    memset(taskQueueArray, 0, sizeof(taskQueueArray));//清空整个数组内容
     taskQueuePos = 0;
     taskQueueSize = 0;
 }
