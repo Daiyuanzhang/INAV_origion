@@ -838,7 +838,7 @@ void taskMainPidLoop(timeUs_t currentTimeUs)
 {
   
     cycleTime = getTaskDeltaTime(TASK_SELF);
-    dT = (float)cycleTime * 0.000001f;
+    dT = (float)cycleTime * 0.000001f;//周期 △T，用于PID计算
 
     if (ARMING_FLAG(ARMED) && (!STATE(FIXED_WING_LEGACY) || !isNavLaunchEnabled() || (isNavLaunchEnabled() && fixedWingLaunchStatus() >= FW_LAUNCH_DETECTED))) {
         flightTime += cycleTime;

@@ -49,6 +49,7 @@ cd /c/Workspace/xpack
 2. Get the xPack version you need for your INAV version:
 ```
 cat /c/Workspace/inav/cmake/arm-none-eabi-checks.cmake | grep "set(arm_none_eabi_gcc_version" | cut -d\" -f2
+cat /d/inav_openedv/cmake/arm-none-eabi-checks.cmake | grep "set(arm_none_eabi_gcc_version" | cut -d\" -f2
 ```
 3. Find the version you need from the [releases page](https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/), then either:
 - Download the "...-win32-x64.zip" and copy the folder inside, or

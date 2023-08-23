@@ -23,7 +23,7 @@
 #ifdef LED0
 # define LED0_TOGGLE              ledToggle(0)
 # define LED0_OFF                 ledSet(0, false)
-# define LED0_ON                  ledSet(0, true)
+# define LED0_ON                  ledSet(0, true)//蓝灯
 #else
 # define LED0_TOGGLE              do {} while (0)
 # define LED0_OFF                 do {} while (0)

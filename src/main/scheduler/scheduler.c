@@ -79,6 +79,7 @@ STATIC_UNIT_TESTED bool queueAdd(cfTask_t *task)
     }
     for (int ii = 0; ii <= taskQueueSize; ++ii) {
         if (taskQueueArray[ii] == NULL || taskQueueArray[ii]->staticPriority < task->staticPriority) {
+            //sizeof(task) * (taskQueueSize - ii)，保证实时任务可以被加入队列前面。
             memmove(&taskQueueArray[ii+1], &taskQueueArray[ii], sizeof(task) * (taskQueueSize - ii));
             taskQueueArray[ii] = task;
             ++taskQueueSize;
@@ -282,7 +283,7 @@ void FAST_CODE NOINLINE scheduler(void)
         selectedTask->movingSumExecutionTime += taskExecutionTime - selectedTask->movingSumExecutionTime / TASK_MOVING_SUM_COUNT;
         selectedTask->totalExecutionTime += taskExecutionTime;   // time consumed by scheduler + task
         selectedTask->maxExecutionTime = MAX(selectedTask->maxExecutionTime, taskExecutionTime);
-    } 
+    }
     
     if (!selectedTask || forcedRealTimeTask) {
         // Execute system real-time callbacks and account for them to SYSTEM account

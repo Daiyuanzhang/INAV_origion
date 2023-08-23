@@ -250,7 +250,7 @@ void taskUpdateOpticalFlow(timeUs_t currentTimeUs)
 #endif
 
 #ifdef USE_DASHBOARD
-void taskDashboardUpdate(timeUs_t currentTimeUs)
+void taskDashboardUpdate(timeUs_t currentTimeUs) //仪表盘
 {
     if (feature(FEATURE_DASHBOARD)) {
         dashboardUpdate(currentTimeUs);
