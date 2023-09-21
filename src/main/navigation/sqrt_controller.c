@@ -66,6 +66,7 @@ float sqrtControllerApply(sqrt_controller_t *sqrt_controller_pointer, float targ
     // Calculate distance error
     sqrt_controller_pointer->error = target - measurement;
 
+    //限制error的幅值
     if ((sqrt_controller_pointer->error_min < 0.0f) && (sqrt_controller_pointer->error < sqrt_controller_pointer->error_min)) {
         sqrt_controller_pointer->error = sqrt_controller_pointer->error_min;
     } else if ((sqrt_controller_pointer->error_max > 0.0f) && (sqrt_controller_pointer->error > sqrt_controller_pointer->error_max)) {

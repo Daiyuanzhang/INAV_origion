@@ -1,6 +1,29 @@
 #pragma once
 // MESSAGE ATTITUDE PACKING
 
+
+// #define DATE_LEN 50
+typedef struct __mavlink_date_send_t {
+uint32_t time_boot_ms; /*< [ms] Timestamp (time since system boot).*/
+// char _string_sending[DATE_LEN];
+int constant_message;
+
+} mavlink_date_send_t;
+
+
+#define MAVLINK_MSG_ID_DATE_SEND_LEN 8
+#define MAVLINK_MSG_ID_DATE_SEND_MIN_LEN 8
+#define MAVLINK_MSG_ID_DATE_SEND_30_LEN 8
+#define MAVLINK_MSG_ID_DATE_SEND_30_MIN_LEN 8
+
+#define MAVLINK_MSG_ID_DATE_SEND_CRC 39
+#define MAVLINK_MSG_ID_DATE_SEND_30_CRC 39
+#define  MAVLINK_MSG_ID_DATE_SEND 12921
+
+
+
+
+
 #define MAVLINK_MSG_ID_ATTITUDE 30
 
 
@@ -33,9 +56,9 @@ typedef struct __mavlink_attitude_t {
          { "roll", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_attitude_t, roll) }, \
          { "pitch", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_attitude_t, pitch) }, \
          { "yaw", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_attitude_t, yaw) }, \
-         { "rollspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_attitude_t, rollspeed) }, \
-         { "pitchspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_attitude_t, pitchspeed) }, \
-         { "yawspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_attitude_t, yawspeed) }, \
+        //  { "rollspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_attitude_t, rollspeed) }, \
+        //  { "pitchspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_attitude_t, pitchspeed) }, \
+        //  { "yawspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_attitude_t, yawspeed) }, \
          } \
 }
 #else
@@ -46,12 +69,37 @@ typedef struct __mavlink_attitude_t {
          { "roll", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_attitude_t, roll) }, \
          { "pitch", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_attitude_t, pitch) }, \
          { "yaw", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_attitude_t, yaw) }, \
-         { "rollspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_attitude_t, rollspeed) }, \
-         { "pitchspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_attitude_t, pitchspeed) }, \
-         { "yawspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_attitude_t, yawspeed) }, \
+        //  { "rollspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_attitude_t, rollspeed) }, \
+        //  { "pitchspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_attitude_t, pitchspeed) }, \
+        //  { "yawspeed", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_attitude_t, yawspeed) }, \
          } \
 }
 #endif
+
+#define MAVLINK_MESSAGE_INFO_SEND_DATA { \
+    12921, \
+    "DIY_DATA", \
+    2, \
+    {   { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_date_send_t, time_boot_ms)  }, \
+        { "s_message", NULL, MAVLINK_TYPE_UINT32_T, 0, 4, offsetof(mavlink_date_send_t, constant_message) }, \
+    } \
+}
+
+
+static inline uint16_t mavlink_msg_date_send_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t time_boot_ms)
+{
+
+    mavlink_date_send_t packet;
+    packet.time_boot_ms = time_boot_ms;
+    packet.constant_message = (int) 111111111;
+    memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_DATE_SEND_LEN);
+
+
+    msg->msgid = MAVLINK_MSG_ID_DATE_SEND;
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_DATE_SEND_MIN_LEN, MAVLINK_MSG_ID_DATE_SEND_LEN, MAVLINK_MSG_ID_DATE_SEND_CRC);
+}
+
 
 /**
  * @brief Pack a attitude message

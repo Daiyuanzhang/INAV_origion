@@ -463,6 +463,7 @@ void mspSerialProcessOnePort(mspPort_t * const mspPort, mspEvaluateNonMspData_e 
     mspPostProcessFnPtr mspPostProcessFn = NULL;
 
     if (serialRxBytesWaiting(mspPort->port)) {
+        //mspPort->port->vTable->serialTotalRxWaiting
         // There are bytes incoming - abort pending request
         mspPort->lastActivityMs = millis();
         mspPort->pendingRequest = MSP_PENDING_NONE;

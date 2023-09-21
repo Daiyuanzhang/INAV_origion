@@ -90,6 +90,14 @@
 
 #include "config/feature.h"
 
+#include "drivers/light_led.h"
+#include "common/log.h"
+#include "./msp/msp_protocol.h"
+#include "./msp/msp.h"
+#include "./msp/msp_serial.h"
+#include "fc_msp.h"
+#include "./telemetry/msp_shared.h"
+
 void taskHandleSerial(timeUs_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
@@ -111,7 +119,9 @@ void taskHandleSerial(timeUs_t currentTimeUs)
     mspOsdSerialProcess(mspFcProcessCommand);
 #endif
 
+
 }
+
 void taskUpdateBattery(timeUs_t currentTimeUs)
 {
     static timeUs_t batMonitoringLastServiced = 0;
@@ -317,6 +327,81 @@ void taskUpdateAux(timeUs_t currentTimeUs)
 #endif
 }
 
+void FuncTest(timeUs_t currentTimeUs)
+{
+    UNUSED(currentTimeUs);
+    static uint32_t current_time = 0, last_time = 0, execute_time = 0;
+    static uint8_t count = 0;
+
+    // STATIC_UNIT_TESTED mspPackage_t mspPackage;
+    //  mspPort_t *msp_Port4;
+    //  msp_Port4->port->identifier = SERIAL_PORT_USART4;
+    // sbuf_t *dst;
+     uint8_t date[] = {1,2,3,4,5,6};
+
+    // //sbuf_t *dst = &mspPackage.responsePacket->buf;
+    // dst->ptr = date[0];
+    // dst->end = date[5];
+    // sbuf_t *src = &mspPackage.requestPacket->buf;
+    // const uint16_t cmdMSP = MSP_API_VERSION;
+    // //mspPackage.requestPacket->cmd;
+    // // initialize reply by default
+    // mspPackage.responsePacket->cmd = mspPackage.requestPacket->cmd;
+    // mspPostProcessFnPtr mspPostProcessFn = NULL;
+
+
+    
+    
+
+    if(count > 10) 
+    {
+        //LOG_DEBUG(SYSTEM, "This is %s topic debug message, value %d", "system", 42);
+        //mspSerialPushPort(MSP_DEBUGMSG, (uint8_t*)current_time,  sizeof(current_time), msp_Port4, MSP_V1);
+        //mspSerialPush(MSP_DEBUG,(uint8_t*)count,  sizeof(count));
+        //mspSerialPush(MSP_DEBUGMSG,(uint8_t*)count,  sizeof(count));
+        //SerialOut(MSP_RAW_IMU, mspPackage.responsePacket, mspFcProcessCommand);
+        //SerialOut(cmdMSP, dst, &mspPostProcessFn);
+        //mspSerialPushPort(MSP_DEBUGMSG, (uint8_t*)current_time,  sizeof(current_time), msp_Port4, MSP_V1);
+        //mspSerialProcessOnePort(msp_Port4, MSP_SKIP_NON_MSP_DATA, mspFcProcessCommand);
+        // _logBufferHex(LOG_TOPIC_SYSTEM, LOG_LEVEL_INFO ,&date[0], 6);
+        // _logf(LOG_TOPIC_SYSTEM, LOG_LEVEL_INFO ,"This is a topic debug message");
+        count = 0;
+    }
+    count++;
+
+
+
+
+
+
+
+    if(current_time == 0)  
+    {
+        current_time = last_time = micros();
+    }
+
+    last_time = current_time;
+    current_time = micros();
+
+    execute_time += current_time - last_time;
+
+
+    if(execute_time < 1000000)
+    {
+         LED0_OFF;
+         LED1_ON;
+    }
+    else if(execute_time > 1000000 && execute_time < 2000000)
+    {
+         LED0_OFF;
+         LED1_OFF;
+    }
+    else execute_time = 0;
+
+
+
+}
+
 void fcTasksInit(void) //将有效的任务添加到队列中，如果没有空速计，则任务不会被添加到任务中。
 {
     schedulerInit();
@@ -328,6 +413,8 @@ void fcTasksInit(void) //将有效的任务添加到队列中，如果没有空�
     setTaskEnabled(TASK_GYRO, true);
 
     setTaskEnabled(TASK_AUX, true);  //该任务在TASK_GYRO的后面
+
+    setTaskEnabled(FUNC_TEST, true);  //新添加的任务
 
     setTaskEnabled(TASK_SERIAL, true);
 #if defined(BEEPER) || defined(USE_DSHOT)
@@ -400,6 +487,8 @@ void fcTasksInit(void) //将有效的任务添加到队列中，如果没有空�
 #if defined(USE_SMARTPORT_MASTER)
     setTaskEnabled(TASK_SMARTPORT_MASTER, true);
 #endif
+
+
 }
 
 cfTask_t cfTasks[TASK_COUNT] = {
@@ -642,4 +731,11 @@ cfTask_t cfTasks[TASK_COUNT] = {
         .desiredPeriod = TASK_PERIOD_HZ(TASK_AUX_RATE_HZ),          // 100Hz @10ms
         .staticPriority = TASK_PRIORITY_HIGH,
     },
+    [FUNC_TEST] = {
+        .taskName = "function_testing",
+        .taskFunc = FuncTest,
+        .desiredPeriod = TASK_PERIOD_HZ(TASK_TEST_RATE_HZ),          // 10Hz @100ms
+        .staticPriority = TASK_PRIORITY_HIGH,
+    },
 };
+

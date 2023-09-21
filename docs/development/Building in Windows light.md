@@ -100,5 +100,6 @@ cd inav
 git reset --hard
 git pull
 make clean TARGET=SPRACINGF3
-make
+make clean TARGET=MATEKF405TE
+
 ```

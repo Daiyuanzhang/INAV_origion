@@ -712,5 +712,6 @@ void init(void)
     persistentObjectWrite(PERSISTENT_OBJECT_RESET_REASON, RESET_NONE);
 #endif
 
+    LOG_ERROR(SYSTEM, "Init is complete");
     systemState |= SYSTEM_STATE_READY;
 }

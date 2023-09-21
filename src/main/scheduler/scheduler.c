@@ -31,7 +31,7 @@
 #include "common/utils.h"
 
 #include "drivers/time.h"
-
+#include "drivers/light_led.h"
 STATIC_FASTRAM cfTask_t *currentTask = NULL;
 
 STATIC_FASTRAM uint32_t totalWaitingTasks;
@@ -206,6 +206,9 @@ void schedulerInit(void)
     queueAdd(&cfTasks[TASK_SYSTEM]);
 }
 
+
+
+
 void FAST_CODE NOINLINE scheduler(void)
 {
     // Cache currentTime
@@ -285,6 +288,13 @@ void FAST_CODE NOINLINE scheduler(void)
         selectedTask->maxExecutionTime = MAX(selectedTask->maxExecutionTime, taskExecutionTime);
     }
     
+    // LED0_ON;
+    // LED1_ON;
+    LED0_OFF;
+    // LED0_OFF;
+    // LED1_OFF;
+
+
     if (!selectedTask || forcedRealTimeTask) {
         // Execute system real-time callbacks and account for them to SYSTEM account
         const timeUs_t currentTimeBeforeTaskCall = micros();

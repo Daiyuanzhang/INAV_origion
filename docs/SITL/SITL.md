@@ -121,6 +121,11 @@ Please also read the documentation of the individual simulators.
 ```--help``` Displays help for the command line options.
 
 For options that take an argument, either form `--flag=value` or `--flag value` may be used.
+./inav_6.1.1_SITL --sim=rf --simip=192.168.0.162 --simport=49000 --chanmap=S01-01,S02-02,S03-03,M01-04
+./inav_6.1.1_SITL --sim=rf --simip=127.0.0.1 --simport=49000 --chanmap=S01-01,S02-02,S03-03,M01-04
+./inav_6.1.1_SITL --sim=rf --simip=127.0.0.1 --simport=18083 --chanmap=S01-01,S02-02,S03-03,M01-04
+
+./inav_6.1.1_SITL --sim=rf --simip=127.0.0.1 --chanmap=S01-01,S02-02,S03-03,M01-04
 
 ## Running SITL
 It is recommended to start the tools in the following order:

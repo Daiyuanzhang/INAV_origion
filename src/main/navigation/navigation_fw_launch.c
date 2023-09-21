@@ -280,6 +280,9 @@ static void updateRcCommand(void)
     // lock roll and yaw and apply needed pitch angle
     rcCommand[ROLL] = 0;
     rcCommand[PITCH] = pidAngleToRcCommand(-DEGREES_TO_DECIDEGREES(fwLaunch.pitchAngle), pidProfile()->max_angle_inclination[FD_PITCH]);
+    //pidProfile()->max_angle_inclination[FD_PITCH] 返回的是一个值 pidProfile_ProfileCurrent
+    //PG_DECLARE_PROFILE(pidProfile_t, pidProfile);
+    //extern _type *_name ## _ProfileCurrent; --> extern pidProfile_t pidProfile_ProfileCurrent
     rcCommand[YAW] = 0;
 }
 

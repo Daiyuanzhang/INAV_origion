@@ -19,6 +19,8 @@
 
 #include "common/time.h"
 
+#define CREATING_FUNC_TEST
+#define TASK_TEST_RATE_HZ 10
 typedef enum {
     TASK_PRIORITY_IDLE = 0,     // Disables dynamic scheduling, task is executed only if no other task is active this cycle
     TASK_PRIORITY_LOW = 1,
@@ -118,6 +120,10 @@ typedef enum {
 #endif
 #ifdef USE_IRLOCK
     TASK_IRLOCK,
+#endif
+
+#ifdef CREATING_FUNC_TEST 
+    FUNC_TEST,
 #endif
     /* Count of real tasks */
     TASK_COUNT,

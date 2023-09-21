@@ -107,6 +107,13 @@ const uint32_t baudRates[] = { 0, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 1
 #define BAUD_RATE_COUNT ARRAYLEN(baudRates)
 
 PG_REGISTER_WITH_RESET_FN(serialConfig_t, serialConfig, PG_SERIAL_CONFIG, 1);
+//PG_REGISTER_I(serialConfig_t, serialConfig, PG_SERIAL_CONFIG, 1,.reset = {.fn = (pgResetFunc*)&pgResetFn_serialConfig });
+
+// serialConfig_t serial =
+// {
+//     .portConfigs[1].identifier = identifier;
+//     .reboot_character = character;
+// }
 
 void pgResetFn_serialConfig(serialConfig_t *serialConfig)
 {

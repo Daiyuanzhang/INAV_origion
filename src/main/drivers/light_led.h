@@ -16,6 +16,7 @@
  */
 
 #pragma once
+// #include "./target/COLIBRI/target.h"
 
 #define LED_NUMBER 3
 
@@ -33,11 +34,11 @@
 #ifdef LED1
 # define LED1_TOGGLE              ledToggle(1)
 # define LED1_OFF                 ledSet(1, false)
-# define LED1_ON                  ledSet(1, true)
+# define LED1_ON                  ledSet(1, true)   //绿灯
 #else
 # define LED1_TOGGLE              do {} while (0)
 # define LED1_OFF                 do {} while (0)
-# define LED1_ON                  do {} while (0)
+# define LED1_ON                  do {} while (0)  //绿灯
 #endif
 
 #ifdef LED2
@@ -47,7 +48,7 @@
 #else
 # define LED2_TOGGLE              do {} while (0)
 # define LED2_OFF                 do {} while (0)
-# define LED2_ON                  do {} while (0)
+# define LED2_ON                  do {} while (0) //无接口
 #endif
 
 void ledInit(bool alternative_led);

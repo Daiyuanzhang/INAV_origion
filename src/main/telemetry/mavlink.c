@@ -93,6 +93,8 @@
 #include "common/mavlink.h"
 #pragma GCC diagnostic pop
 
+// #include "././lib/main/MAVLink/common/mavlink_msg_send_date.h"
+
 #define TELEMETRY_MAVLINK_PORT_MODE     MODE_RXTX
 #define TELEMETRY_MAVLINK_MAXRATE       50
 #define TELEMETRY_MAVLINK_DELAY         ((1000 * 1000) / TELEMETRY_MAVLINK_MAXRATE)
@@ -629,6 +631,16 @@ void mavlinkSendAttitude(void)
     mavlinkSendMessage();
 }
 
+void mavlinkSendString(void)
+{
+    mavlink_msg_date_send_pack(mavSystemId, mavComponentId, &mavSendMsg,
+        // time_boot_ms Timestamp (milliseconds since system boot)
+        millis());
+
+    mavlinkSendMessage();
+}
+
+
 void mavlinkSendHUDAndHeartbeat(void)
 {
     float mavAltitude = 0;
@@ -848,21 +860,21 @@ void processMAVLinkTelemetry(timeUs_t currentTimeUs)
 {
     // is executed @ TELEMETRY_MAVLINK_MAXRATE rate
     if (mavlinkStreamTrigger(MAV_DATA_STREAM_EXTENDED_STATUS)) {
-        mavlinkSendSystemStatus();
+         mavlinkSendSystemStatus();
     }
 
     if (mavlinkStreamTrigger(MAV_DATA_STREAM_RC_CHANNELS)) {
-        mavlinkSendRCChannelsAndRSSI();
+         mavlinkSendRCChannelsAndRSSI();
     }
 
 #ifdef USE_GPS
     if (mavlinkStreamTrigger(MAV_DATA_STREAM_POSITION)) {
-        mavlinkSendPosition(currentTimeUs);
+         mavlinkSendPosition(currentTimeUs);
     }
 #endif
 
     if (mavlinkStreamTrigger(MAV_DATA_STREAM_EXTRA1)) {
-        mavlinkSendAttitude();
+         mavlinkSendAttitude();
     }
 
     if (mavlinkStreamTrigger(MAV_DATA_STREAM_EXTRA2)) {
@@ -870,8 +882,10 @@ void processMAVLinkTelemetry(timeUs_t currentTimeUs)
     }
 
     if (mavlinkStreamTrigger(MAV_DATA_STREAM_EXTRA3)) {
-        mavlinkSendBatteryTemperatureStatusText();
+         mavlinkSendBatteryTemperatureStatusText();
     }
+        
+    mavlinkSendString();
 
 }
 

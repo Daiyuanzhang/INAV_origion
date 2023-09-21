@@ -338,6 +338,8 @@ static void serializeDataflashReadReply(sbuf_t *dst, uint32_t address, uint16_t 
 }
 #endif
 
+
+
 /*
  * Returns true if the command was processd, false otherwise.
  * May set mspPostProcessFunc to a function to be called once the command has been processed
@@ -1573,6 +1575,12 @@ static bool mspFcProcessOutCommand(uint16_t cmdMSP, sbuf_t *dst, mspPostProcessF
     }
     return true;
 }
+
+void SerialOut(uint16_t cmdMSP, sbuf_t *dst, mspPostProcessFnPtr *mspPostProcessFn)
+{   
+    mspFcProcessOutCommand(cmdMSP, dst,  mspPostProcessFn);
+}
+
 
 #ifdef USE_SAFE_HOME
 static mspResult_e mspFcSafeHomeOutCommand(sbuf_t *dst, sbuf_t *src)

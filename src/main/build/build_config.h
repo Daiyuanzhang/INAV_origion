@@ -42,7 +42,12 @@
 #ifdef __APPLE__
 #define FASTRAM                     __attribute__ ((section("__DATA,__.fastram_bss"), aligned(4)))
 #else
-#define FASTRAM                     __attribute__ ((section(".fastram_bss"), aligned(4)))
+#define FASTRAM                     __attribute__ ((section(".fastram_bss"), aligned(4)))  /*结构体大小必须4字节对齐
+struct test2{
+    char a;
+    int b;
+}__attribute__((aligned(4)));
+*/
 #endif
 
 #if defined (STM32F4) || defined (STM32F7)
