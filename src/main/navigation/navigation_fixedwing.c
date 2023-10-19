@@ -130,6 +130,7 @@ bool adjustFixedWingAltitudeFromRCInput(void)
 }
 
 // Position to velocity controller for Z axis
+//控制高度误差
 static void updateAltitudeVelocityAndPitchController_FW(timeDelta_t deltaMicros)
 {
     static pt1Filter_t velzFilterState;
@@ -138,10 +139,10 @@ static void updateAltitudeVelocityAndPitchController_FW(timeDelta_t deltaMicros)
     // velocity error. We use PID controller on altitude error and calculate desired pitch angle
 
     // Update energies
-    const float demSPE = (posControl.desiredState.pos.z * 0.01f) * GRAVITY_MSS;
+    const float demSPE = (posControl.desiredState.pos.z * 0.01f) * GRAVITY_MSS;//set值，坐标＋速速的反馈值
     const float demSKE = 0.0f;
 
-    const float estSPE = (navGetCurrentActualPositionAndVelocity()->pos.z * 0.01f) * GRAVITY_MSS;
+    const float estSPE = (navGetCurrentActualPositionAndVelocity()->pos.z * 0.01f) * GRAVITY_MSS;//反馈值，坐标＋速速的反馈值
     const float estSKE = 0.0f;
 
     // speedWeight controls balance between potential and kinetic energy used for pitch controller

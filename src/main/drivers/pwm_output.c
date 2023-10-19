@@ -144,7 +144,7 @@ static pwmOutputPort_t *pwmOutAllocatePort(void)
 
 static pwmOutputPort_t *pwmOutConfig(const timerHardware_t *timHw, resourceOwner_e owner, uint32_t hz, uint16_t period, uint16_t value, bool enableOutput)
 {
-    // Attempt to allocate TCH
+    // Attempt to allocate TCH //time channel
     TCH_t * tch = timerGetTCH(timHw);
     if (tch == NULL) {
         return NULL;
@@ -160,7 +160,7 @@ static pwmOutputPort_t *pwmOutConfig(const timerHardware_t *timHw, resourceOwner
     IOInit(io, owner, RESOURCE_OUTPUT, allocatedOutputPortCount);
 
     if (enableOutput) {
-        IOConfigGPIOAF(io, IOCFG_AF_PP, timHw->alternateFunction);
+        IOConfigGPIOAF(io, IOCFG_AF_PP, timHw->alternateFunction); //配置IO引脚
     }
     else {
         // If PWM outputs are disabled - configure as GPIO and drive low
@@ -221,7 +221,7 @@ static pwmOutputPort_t * motorConfigPwm(const timerHardware_t *timerHardware, fl
 {
     const uint32_t baseClockHz = timerGetBaseClockHW(timerHardware);
     const uint32_t prescaler = ((baseClockHz / motorPwmRateHz) + 0xffff) / 0x10000; /* rounding up */
-    const uint32_t timerHz = baseClockHz / prescaler;
+    const uint32_t timerHz = baseClockHz / prescaler; //定时器执行周期
     const uint32_t period = timerHz / motorPwmRateHz;
 
     pwmOutputPort_t * port = pwmOutConfig(timerHardware, OWNER_MOTOR, timerHz, period, 0, enableOutput);

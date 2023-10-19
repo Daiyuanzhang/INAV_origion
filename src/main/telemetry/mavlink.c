@@ -875,6 +875,7 @@ void processMAVLinkTelemetry(timeUs_t currentTimeUs)
 
     if (mavlinkStreamTrigger(MAV_DATA_STREAM_EXTRA1)) {
          mavlinkSendAttitude();
+        //  mavlinkSendString();
     }
 
     if (mavlinkStreamTrigger(MAV_DATA_STREAM_EXTRA2)) {
@@ -885,7 +886,7 @@ void processMAVLinkTelemetry(timeUs_t currentTimeUs)
          mavlinkSendBatteryTemperatureStatusText();
     }
         
-    mavlinkSendString();
+
 
 }
 
@@ -1032,7 +1033,7 @@ static bool handleIncoming_MISSION_REQUEST(void)
 
         if (msg.seq < wpCount) {
             navWaypoint_t wp;
-            getWaypoint(msg.seq + 1, &wp);
+            getWaypoint(msg.seq + 1, &wp);//获取航点数据，存储在wp中
 
             mavlink_msg_mission_item_pack(mavSystemId, mavComponentId, &mavSendMsg, mavRecvMsg.sysid, mavRecvMsg.compid,
                         msg.seq,

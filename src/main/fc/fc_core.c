@@ -61,6 +61,7 @@
 #include "fc/rc_modes.h"
 #include "fc/runtime_config.h"
 
+
 #include "io/beeper.h"
 #include "io/dashboard.h"
 #include "io/gps.h"
@@ -621,7 +622,13 @@ void processRx(timeUs_t currentTimeUs)
         }
     }
 
-    processRcStickPositions(throttleIsLow);
+    processRcStickPositions(throttleIsLow);  //更新遥控器数据
+    // set_rcChannels_value(THROTTLE, 2500);
+    // set_rcChannels_value(PITCH, 2000);
+    // set_rcChannels_value(ROLL, 1500);
+    // set_rcChannels_value(YAW, 1500);
+    // rcChannels[THROTTLE].data = 2000;
+
     processAirmode();
     updateActivatedModes();
 
@@ -839,7 +846,7 @@ void taskMainPidLoop(timeUs_t currentTimeUs)
   
     cycleTime = getTaskDeltaTime(TASK_SELF);
     dT = (float)cycleTime * 0.000001f;//周期 △T，用于PID计算
-
+    // armingFlags = (1 << 2);
     if (ARMING_FLAG(ARMED) && (!STATE(FIXED_WING_LEGACY) || !isNavLaunchEnabled() || (isNavLaunchEnabled() && fixedWingLaunchStatus() >= FW_LAUNCH_DETECTED))) {
         flightTime += cycleTime;
         armTime += cycleTime;
@@ -903,6 +910,9 @@ void taskMainPidLoop(timeUs_t currentTimeUs)
         // FIXME: throttle pitch comp for FW
     }
 
+    // rcCommand[THROTTLE] = 2000;
+    // rcCommand[PITCH] = 1300;
+
 #ifdef USE_POWER_LIMITS
     powerLimiterApply(&rcCommand[THROTTLE]);
 #endif
@@ -926,7 +936,7 @@ void taskMainPidLoop(timeUs_t currentTimeUs)
 	    }
 
 	    if (motorControlEnable) {
-	        writeMotors();
+	        writeMotors();//写pwm值的入口
 	    }
 	}
 #else

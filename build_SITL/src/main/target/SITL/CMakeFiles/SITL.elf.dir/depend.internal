@@ -3573,6 +3573,7 @@ src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o
  ../src/main/platform.h
  ../src/main/programming/logic_condition.h
  ../src/main/programming/programming_task.h
+ ../src/main/rx/crsf.h
  ../src/main/rx/rx.h
  ../src/main/scheduler/scheduler.h
  ../src/main/sensors/acceleration.h
@@ -3591,8 +3592,11 @@ src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o
  ../src/main/target/common.h
  ../src/main/target/common_post.h
  ../src/main/target/sanity_check.h
+ ../src/main/telemetry/crsf.h
+ ../src/main/telemetry/msp_shared.h
  ../src/main/telemetry/smartport.h
  ../src/main/telemetry/telemetry.h
+ /mnt/d/Workspace/inav_openedv/src/main/fc/fc_msp.h
  /mnt/d/Workspace/inav_openedv/src/main/fc/fc_tasks.c
  src/main/target/SITL/SITL/settings_generated.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/firmware_update.c.o

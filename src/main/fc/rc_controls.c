@@ -195,7 +195,7 @@ void processRcStickPositions(bool isThrottleLow)
     const timeMs_t currentTimeMs = millis();
 
     updateRcStickPositions();
-
+    
     uint32_t stTmp = getRcStickPositions();
     if (stTmp == rcSticks) {
         if (rcDelayCommand < 250) {

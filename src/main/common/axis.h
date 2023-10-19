@@ -30,7 +30,7 @@ typedef enum {
     FD_ROLL = 0,
     FD_PITCH,
     FD_YAW
-} flight_dynamics_index_t;
+} flight_dynamics_index_t;//Flight dynamics 飞行动力学 
 
 #define FLIGHT_DYNAMICS_INDEX_COUNT 3
 

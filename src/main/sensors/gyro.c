@@ -73,7 +73,7 @@
 #include "hardware_revision.h"
 #endif
 
-FASTRAM gyro_t gyro; // gyro sensor object
+FASTRAM gyro_t gyro; // gyro sensor object//陀螺仪角速度
 
 #define MAX_GYRO_COUNT 1
 

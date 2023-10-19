@@ -91,9 +91,9 @@ void timerConfigure(TCH_t * tch, uint16_t period, uint32_t hz)
     impl_enableTimer(tch);
 }
 
-TCH_t * timerGetTCH(const timerHardware_t * timHw)
+TCH_t * timerGetTCH(const timerHardware_t * timHw) //配置定时器，并返回那个定时器通过那个通道输出pwm波
 {
-    const int timerIndex = lookupTimerIndex(timHw->tim);
+    const int timerIndex = lookupTimerIndex(timHw->tim);//查询是第几个定时器配置出的pwm
     
     if (timerIndex >= HARDWARE_TIMER_DEFINITION_COUNT) {
         LOG_ERROR(TIMER, "Can't find hardware timer definition");

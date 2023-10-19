@@ -1087,15 +1087,15 @@ void FAST_CODE pidController(float dT)
 
     for (int axis = 0; axis < 3; axis++) {
         // Step 1: Calculate gyro rates
-        pidState[axis].gyroRate = gyro.gyroADCf[axis];
+        pidState[axis].gyroRate = gyro.gyroADCf[axis];//角速度
 
         // Step 2: Read target
         float rateTarget;
 
-        if (axis == FD_YAW && headingHoldState == HEADING_HOLD_ENABLED) {
+        if (axis == FD_YAW && headingHoldState == HEADING_HOLD_ENABLED) {//航向保持器
             rateTarget = pidHeadingHold(dT);
         } else {
-#ifdef USE_PROGRAMMING_FRAMEWORK
+#ifdef USE_PROGRAMMING_FRAMEWORK//手动控制航向
             rateTarget = pidRcCommandToRate(getRcCommandOverride(rcCommand, axis), currentControlRateProfile->stabilized.rates[axis]);
 #else
             rateTarget = pidRcCommandToRate(rcCommand[axis], currentControlRateProfile->stabilized.rates[axis]);
@@ -1133,7 +1133,7 @@ void FAST_CODE pidController(float dT)
         float bankAngleTarget = DECIDEGREES_TO_RADIANS(pidRcCommandToAngle(rcCommand[FD_ROLL], pidProfile()->max_angle_inclination[FD_ROLL]));
         float pitchAngleTarget = DECIDEGREES_TO_RADIANS(pidRcCommandToAngle(rcCommand[FD_PITCH], pidProfile()->max_angle_inclination[FD_PITCH]));
         pidTurnAssistant(pidState, bankAngleTarget, pitchAngleTarget);
-        canUseFpvCameraMix = false;     // FPVANGLEMIX is incompatible with TURN_ASSISTANT
+        canUseFpvCameraMix = false;     // FPV ANGLE MIX is incompatible with TURN_ASSISTANT
     }
 
     if (canUseFpvCameraMix && IS_RC_MODE_ACTIVE(BOXFPVANGLEMIX) && currentControlRateProfile->misc.fpvCamAngleDegrees) {
@@ -1151,7 +1151,7 @@ void FAST_CODE pidController(float dT)
         checkItermLimitingActive(&pidState[axis]);
         checkItermFreezingActive(&pidState[axis], axis);
 
-        pidControllerApplyFn(&pidState[axis], axis, dT);
+        pidControllerApplyFn(&pidState[axis], axis, dT); //指向该函数pidApplyFixedWingRateController
     }
 }
 

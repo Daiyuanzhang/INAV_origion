@@ -3572,6 +3572,7 @@ src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/platform.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/programming/logic_condition.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/programming/programming_task.h
+src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/rx/crsf.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/rx/rx.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/scheduler/scheduler.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/sensors/acceleration.h
@@ -3590,8 +3591,11 @@ src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/target/common.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/target/common_post.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/target/sanity_check.h
+src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/telemetry/crsf.h
+src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/telemetry/msp_shared.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/telemetry/smartport.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/telemetry/telemetry.h
+src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/fc/fc_msp.h
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: ../src/main/fc/fc_tasks.c
 src/main/target/SITL/CMakeFiles/SITL.elf.dir/__/__/fc/fc_tasks.c.o: src/main/target/SITL/SITL/settings_generated.h
 

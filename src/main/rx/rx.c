@@ -139,6 +139,13 @@ PG_RESET_TEMPLATE(rxConfig_t, rxConfig,
 #endif
 );
 
+void set_rcChannels_value(char CH, uint16_t value)
+{
+    if(CH > AUX12 || value > 2500 || value < 1000) return;
+    rcChannels[CH].data = value;
+
+}
+
 void resetAllRxChannelRangeConfigurations(void)
 {
     // set default calibration to full range and 1:1 mapping

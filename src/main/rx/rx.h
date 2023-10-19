@@ -226,3 +226,4 @@ void resumeRxSignal(void);
 // filtering and some extra processing like value holding
 // during failsafe.
 int16_t rxGetChannelValue(unsigned channelNumber);
+void set_rcChannels_value(char CH, uint16_t value);
